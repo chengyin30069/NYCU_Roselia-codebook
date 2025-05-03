@@ -1,10 +1,32 @@
-syn on
-se si nu rnu ru cul mouse=a
-se cin et ts=4 sw=4 sts=4 re=0
-colo koehler # evening, wildcharm 
-set autochdir
+set number relativenumber ai t_Co=256 tabstop=4
+set mouse=a shiftwidth=4 encoding=utf8
+set bs=2 ruler laststatus=2 cmdheight=2
+set clipboard=unnamedplus showcmd autoread
+set belloff=all
+filetype indent on
+"set guifont Hack:h16
+":set guifont?
 
-no <F1> :!%:p:h/a.out < %:p:h/input > %:p:h/output; echo "------------"; cat %:p:h/output<CR>
-no <F2> :!g++ -std=c++20 -fsanitize=address,undefined -g -Wextra -Wall %:p<CR>
-no <F3> :!%:p:h/a.out > %:p:h/output; echo "------------"; cat %:p:h/output<CR>
+inoremap ( ()<Esc>i
+inoremap " ""<Esc>i
+inoremap [ []<Esc>i
+inoremap ' ''<Esc>i
+inoremap { {<CR>}<Esc>ko
 
+vmap <C-c> "+y
+inoremap <C-v> <Esc>p
+nnoremap <C-v> p
+
+nnoremap <tab> gt
+nnoremap <S-tab> gT
+inoremap <C-n> <Esc>:tabnew<CR>
+nnoremap <C-n> :tabnew<CR>
+
+inoremap <F9> <Esc>:w<CR>:!~/runcpp.sh %:p:t %:p:h<CR>
+nnoremap <F9> :w<CR>:!~/runcpp.sh %:p:t %:p:h<CR>
+
+syntax on
+colorscheme desert
+set filetype=cpp
+set background=dark
+hi Normal ctermfg=white ctermbg=black
