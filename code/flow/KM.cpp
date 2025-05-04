@@ -11,7 +11,8 @@ struct KM
 	void add(int a,int b,int c){g[a][b]=c;}
 	void augment(int y)
 	{
-		for(int x,z;y;y=z)x=pa[y],z=mx[x],my[y]=x,mx[x]=y;
+		for(int x,z;y;y=z)
+			x=pa[y],z=mx[x],my[y]=x,mx[x]=y;
 	}
 	void bfs(int st)
 	{
@@ -57,7 +58,8 @@ struct KM
 	{
 		fill(mx,mx+n+1,0);fill(my,my+n+1,0);
 		fill(ly,ly+n+1,0);fill(lx,lx+n+1,0);
-		FOR(x,1,n+1)FOR(y,1,n+1)lx[x]=max(lx[x],g[x][y]);
+		FOR(x,1,n+1)FOR(y,1,n+1)
+			lx[x]=max(lx[x],g[x][y]);
 		FOR(x,1,n+1)bfs(x);
 		int ans=0;
 		FOR(y,1,n+1)ans+=g[my[y]][y];
