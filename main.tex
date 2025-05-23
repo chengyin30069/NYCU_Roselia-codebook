@@ -1,4 +1,4 @@
-\documentclass[a4paper,10pt,twocolumn,oneside]{article}
+\documentclass[a4paper,10pt,twocolumn,oneside,x11names]{article}
 \setlength{\columnsep}{10pt}  %兩欄模式的間距
 \setlength{\columnseprule}{0pt}  %兩欄模式間格線粗細
 \setlength{\headsep}{6pt}
@@ -13,7 +13,7 @@
 \usepackage{fontspec}  %設定字體
 \usepackage{tikz}
 \usepackage{color}
-\usepackage[x11names]{xcolor}
+\usepackage{xcolor}
 \usepackage{listings}  %顯示code用的
 %\usepackage[Glenn]{fncychap}  %排版，頁面模板
 \usepackage{fancyhdr}  %設定頁首頁尾
@@ -216,6 +216,9 @@ numbers=left
 \subsection{SCC - Tarjan}
 \lstinputlisting{code/graph/SCC-Tarjan.cpp}
 
+\subsection{SCC - Kosaraju}
+\lstinputlisting{code/graph/SCC-kosaraju.cpp}
+
 \subsection{Eulerian Path - Undir}
 \lstinputlisting{code/graph/EulerianPath-Undir.cpp}
 
@@ -328,6 +331,9 @@ $$
 \lstinputlisting{code/geometry/MinkowskiSum.txt}
 
 \section{Number Theory}
+
+\subsection{FFT}
+\lstinputlisting{code/number-theory/FFT.cpp}
 
 \subsection{Pollard's rho}
 \lstinputlisting{code/number-theory/PollardRho.txt}
