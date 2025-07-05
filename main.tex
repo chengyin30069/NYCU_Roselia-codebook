@@ -21,6 +21,7 @@
 \usepackage{enumitem}
 \usepackage{titlesec}
 \usepackage{amsmath}
+\usepackage{multicol}  %多欄模式
 \usepackage[CheckSingle, CJKmath]{xeCJK}
 % \usepackage{CJKulem}
 %\usepackage[T1]{fontenc}
@@ -100,7 +101,9 @@ numbers=left
 % ================================================ %
 
 {\scriptsize
-\tableofcontents}
+\begin{multicols}{2}
+\tableofcontents
+\end{multicols}}
 
 \section{Reminder}
 \subsection{Bug List}
