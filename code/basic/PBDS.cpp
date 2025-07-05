@@ -20,4 +20,4 @@ ht.erase(element);
 // priority queue
 __gnu_pbds::priority_queue<int, less<int>> big_q;       // Big First
 __gnu_pbds::priority_queue<int, greater<int>> small_q;  // Small First
-q1.join(q2);                                            // join
+q1.join(q2); // join
