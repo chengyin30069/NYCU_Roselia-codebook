@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        ".gitignore": "verilog",
+        "chrono": "cpp"
+    }
+}

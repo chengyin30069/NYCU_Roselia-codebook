@@ -1,23 +1,20 @@
-int n, m;
-string s, p;
 vector<int> f;
-void build() {
-	f.clear(); f.resize(m, 0);
-	int ptr = 0; for (int i = 1; i < m; i++) {
-		while (ptr && p[i] != p[ptr]) ptr = f[ptr-1];
-		if (p[i] == p[ptr]) ptr++;
-		f[i] = ptr;
-}}
-void init() {
-	cin >> s >> p;
-	n = (int)s.size();
-	m = (int)p.size();
-	build(); }
-void solve() {
-	int ans = 0, pi = 0;
-	for (int si = 0; si < n; si++) {
-		while (pi && s[si] != p[pi]) pi = f[pi-1];
-		if (s[si] == p[pi]) pi++;
-		if (pi == m) ans++, pi = f[pi-1];
-	}
-cout << ans << endl; }
+void buildFailFunction(string &s) {
+    f.resize(s.size(), -1);
+    for (int i = 1; i < s.size(); i++) {
+        int now = f[i - 1];
+        while (now != -1 and s[now + 1] != s[i]) now = f[now];
+        if (s[now + 1] == s[i]) f[i] = now + 1;
+    }
+}
+
+void KMPmatching(string &a, string &b) {
+    for (int i = 0, now = -1; i < a.size(); i++) {
+        while (a[i] != b[now + 1] and now != -1) now = f[now];
+        if (a[i] == b[now + 1]) now++;
+        if (now + 1 == b.size()) {
+            cout << "found a match start at position " << i - now << endl;
+            now = f[now];
+        }
+    }
+}

@@ -8,10 +8,12 @@ void seive() {
             prime.emplace_back(i);
         }
         for (auto& j : prime) {
-            if (i*j >= maxn) break;
-            lpf[i*j] = j;
+            if (i * j >= maxn) break;
+            lpf[i * j] = j;
             if (j == lpf[i]) break;
-} } }
+        }
+    }
+}
 vector<pii> fac;
 void defactor(int u) {
     fac.clear();
@@ -20,5 +22,7 @@ void defactor(int u) {
         fac.emplace_back(mp(d, 0));
         while (u % d == 0) {
             u /= d;
-            fac[(int)fac.size()-1].S++;
-} } }
+            fac[(int)fac.size() - 1].S++;
+        }
+    }
+}
