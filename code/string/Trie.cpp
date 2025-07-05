@@ -1,19 +1,15 @@
-struct node {
-    int c[26]; ll cnt;
-    node(): cnt(0) {memset(c, 0, sizeof(c));}
-    node(ll x): cnt(x) {memset(c, 0, sizeof(c));}
-};
-struct Trie {
-    vector<node> t;
-    void init() {
-        t.clear();
-        t.emplace_back(node());
+pii a[N][26];
+
+void build(string &s) {
+    static int idx = 0;
+    int n = s.size();
+    for (int i = 0, v = 0; i < n; i++) {
+        pii &now = a[v][s[i] - 'a'];
+        if (now.first != -1)
+            v = now.first;
+        else
+            v = now.first = ++idx;
+        if (i == n - 1)
+            now.second++;
     }
-    void insert(string s) { int ptr = 0;
-        for (auto& i : s) {
-            if (!t[ptr].c[i-'a']) {
-                t.emplace_back(node());
-                t[ptr].c[i-'a'] = (int)t.size()-1; }
-            ptr = t[ptr].c[i-'a']; }
-        t[ptr].cnt++; }
-} trie;
+}
