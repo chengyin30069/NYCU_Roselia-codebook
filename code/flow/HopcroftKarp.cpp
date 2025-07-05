@@ -6,7 +6,8 @@ struct HopcroftKarp {
     void init(int nnx, int nny, int mm) {
         nx = nnx, ny = nny, m = mm;
         n = nx + ny + 1;
-        g.clear(); g.resize(n);
+        g.clear();
+        g.resize(n);
     }
     void add(int x, int y) {
         g[x].emplace_back(y);
@@ -17,8 +18,8 @@ struct HopcroftKarp {
         Each(y, g[x]) {
             int px = my[y];
             if (px == -1 ||
-                (dis[px] == dis[x]+1 &&
-                !vis[px] && dfs(px))) {
+                (dis[px] == dis[x] + 1 &&
+                 !vis[px] && dfs(px))) {
                 mx[x] = y;
                 my[y] = x;
                 return true;
@@ -27,20 +28,24 @@ struct HopcroftKarp {
         return false;
     }
     void get() {
-        mx.clear(); mx.resize(n, -1);
-        my.clear(); my.resize(n, -1);
+        mx.clear();
+        mx.resize(n, -1);
+        my.clear();
+        my.resize(n, -1);
 
         while (true) {
             queue<int> q;
-            dis.clear(); dis.resize(n, -1);
-            for (int x = 1; x <= nx; x++){
+            dis.clear();
+            dis.resize(n, -1);
+            for (int x = 1; x <= nx; x++) {
                 if (mx[x] == -1) {
                     dis[x] = 0;
                     q.push(x);
                 }
             }
             while (!q.empty()) {
-                int x = q.front(); q.pop();
+                int x = q.front();
+                q.pop();
                 Each(y, g[x]) {
                     if (my[y] != -1 && dis[my[y]] == -1) {
                         dis[my[y]] = dis[x] + 1;
@@ -50,7 +55,8 @@ struct HopcroftKarp {
             }
 
             bool brk = true;
-            vis.clear(); vis.resize(n, 0);
+            vis.clear();
+            vis.resize(n, 0);
             for (int x = 1; x <= nx; x++)
                 if (mx[x] == -1 && dfs(x))
                     brk = false;
@@ -58,6 +64,7 @@ struct HopcroftKarp {
             if (brk) break;
         }
         MXCNT = 0;
-        for (int x = 1; x <= nx; x++) if (mx[x] != -1) MXCNT++;
+        for (int x = 1; x <= nx; x++)
+            if (mx[x] != -1) MXCNT++;
     }
 } hk;
