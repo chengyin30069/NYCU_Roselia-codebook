@@ -4,18 +4,12 @@ set bs=2 ruler laststatus=2 cmdheight=2
 set clipboard=unnamedplus showcmd autoread
 set belloff=all
 filetype indent on
-"set guifont Hack:h16
-":set guifont?
 
 inoremap ( ()<Esc>i
 inoremap " ""<Esc>i
 inoremap [ []<Esc>i
 inoremap ' ''<Esc>i
 inoremap { {<CR>}<Esc>ko
-
-vmap <C-c> "+y
-inoremap <C-v> <Esc>p
-nnoremap <C-v> p
 
 nnoremap <tab> gt
 nnoremap <S-tab> gT
