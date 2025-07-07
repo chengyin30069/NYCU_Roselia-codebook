@@ -13,4 +13,3 @@ Pt line_intersect(Pt a1, Pt a2, Pt b1, Pt b2) {
     T t = ((b1 - a1) ^ db) / det;
     return a1 + da * t;
 }
-
