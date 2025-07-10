@@ -1,88 +1,29 @@
-const long double eps = 1e-9, inf = 1e9;
-struct Point {
-    long double x, y;
-    explicit Point(long double x = 0, long double y = 0) : x(x), y(y) {}
-    friend Point operator+(const Point& p, const Point& q) {
-        return Point(p.x + q.x, p.y + q.y);
+bool cover(Line& L, Line& P, Line& Q) {
+    long double u = (Q.a - P.a) ^ Q.dir();
+    long double v = P.dir() ^ Q.dir();
+    long double x = P.dir().x * u + (P.a - L.a).x * v;
+    long double y = P.dir().y * u + (P.a - L.a).y * v;
+    return sgn(x * L.dir().y - y * L.dir().x) * sgn(v) >= 0;
+}
+vector<Line> HPI(vector<Line> P) {
+    sort(P.begin(), P.end(), [&](Line& l, Line& m) {
+        if (argcmp(l.dir(), m.dir())) return true;
+        if (argcmp(m.dir(), l.dir())) return false;
+        return ori(m.a, m.b, l.a) > 0;
+    });
+
+    int l = 0, r = -1;
+    for (size_t i = 0; i < P.size(); ++i) {
+        if (i && !argcmp(P[i - 1].dir(), P[i].dir())) continue;
+        while (l < r && cover(P[i], P[r - 1], P[r])) --r;
+        while (l < r && cover(P[i], P[l], P[l + 1])) ++l;
+        P[++r] = P[i];
     }
-    friend Point operator-(const Point& p, const Point& q) {
-        return Point(p.x - q.x, p.y - q.y);
-    }
-    friend Point operator*(const Point& p, const long double& k) {
-        return Point(p.x * k, p.y * k);
-    }
-    friend long double dot(const Point& p, const Point& q) {
-        return p.x * q.x + p.y * q.y;
-    }
-    friend long double cross(const Point& p, const Point& q) {
-        return p.x * q.y - p.y * q.x;
-    }
-};
-struct Halfplane {
-    Point p, pq;
-    long double angle;
-    Halfplane() {}
-    Halfplane(const Point& a, const Point& b) : p(a), pq(b - a) {
-        angle = atan2l(pq.y, pq.x);
-    }
-    bool out(const Point& r) {
-        return cross(pq, r - p) < -eps;
-    }
-    bool operator<(const Halfplane& e) const {
-        return angle < e.angle;
-    }
-    friend Point inter(const Halfplane& s, const Halfplane& t) {
-        long double alpha = cross((t.p - s.p), t.pq) / cross(s.pq, t.pq);
-        return s.p + (s.pq * alpha);
-    }
-};
-vector<Point> hp_intersect(vector<Halfplane>& H) {
-    Point box[4] = {// Bounding box in CCW order
-                    Point(inf, inf),
-                    Point(-inf, inf),
-                    Point(-inf, -inf),
-                    Point(inf, -inf)};
-    for (int i = 0; i < 4; i++) {  // Add bounding box half-planes.
-        Halfplane aux(box[i], box[(i + 1) % 4]);
-        H.push_back(aux);
-    }
-    sort(H.begin(), H.end());
-    deque<Halfplane> dq;
-    int len = 0;
-    for (int i = 0; i < int(H.size()); i++) {
-        while (len > 1 && H[i].out(inter(dq[len - 1], dq[len - 2]))) {
-            dq.pop_back();
-            --len;
-        }
-        while (len > 1 && H[i].out(inter(dq[0], dq[1]))) {
-            dq.pop_front();
-            --len;
-        }
-        if (len > 0 && fabsl(cross(H[i].pq, dq[len - 1].pq)) < eps) {
-            if (dot(H[i].pq, dq[len - 1].pq) < 0.0)
-                return vector<Point>();
-            if (H[i].out(dq[len - 1].p)) {
-                dq.pop_back();
-                --len;
-            } else
-                continue;
-        }
-        dq.push_back(H[i]);
-        ++len;
-    }
-    while (len > 2 && dq[0].out(inter(dq[len - 1], dq[len - 2]))) {
-        dq.pop_back();
-        --len;
-    }
-    while (len > 2 && dq[len - 1].out(inter(dq[0], dq[1]))) {
-        dq.pop_front();
-        --len;
-    }
-    if (len < 3) return vector<Point>();
-    vector<Point> ret(len);
-    for (int i = 0; i + 1 < len; i++) {
-        ret[i] = inter(dq[i], dq[i + 1]);
-    }
-    ret.back() = inter(dq[len - 1], dq[0]);
-    return ret;
+    while (l < r && cover(P[l], P[r - 1], P[r])) --r;
+    while (l < r && cover(P[r], P[l], P[l + 1])) ++l;
+
+    if (r - l <= 1 || !argcmp(P[l].dir(), P[r].dir())) return {};
+    if (cover(P[l + 1], P[l], P[r])) return {};
+
+    return vector<Line>(P.begin() + l, P.begin() + r + 1);
 }
