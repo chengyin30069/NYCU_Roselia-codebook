@@ -10,10 +10,14 @@ WORKDIR /work
 
 COPY . .
 
-RUN mkdir ttf-dmcasansserif && cd ttf-dmcasansserif && \
-    curl -L -O 'https://typedesign.replit.app/DMCAsansserif9.0-20252.zip' && \
+RUN cd ttf && \
     unzip 'DMCAsansserif9.0-20252.zip' && \
-    ls | grep .ttf | xargs -I% -n1 install -Dm644 % /usr/share/fonts/TTF/% && \
-    cd - && rm -rf ttf-dmcasansserif
+    unzip 'Noto_Sans.zip' && \
+    ls | grep .ttf | xargs -I% -n1 install -Dm644 % /usr/share/fonts/ttf/% 
+
+RUN cd /work && mkdir -p /usr/share/fonts/otf && \
+    cp /work/NotoSerifTC-Medium.otf /usr/share/fonts/otf/NotoSerifTC-Medium.otf 
+
+RUN fc-cache -fv
 
 CMD ["make"]
