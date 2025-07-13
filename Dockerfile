@@ -1,14 +1,21 @@
 FROM archlinux:latest
 
+RUN echo 'ParallelDownloads = 5' >> /etc/pacman.conf
+
 RUN pacman -Syu --noconfirm texlive-basic texlive-latex texlive-latexrecommended texlive-latexextra \
     texlive-xetex texlive-pictures texlive-mathscience texlive-bibtexextra \
-    texlive-fontsrecommended texlive-fontutils \
-    texlive-langcjk texlive-langchinese noto-fonts noto-fonts-cjk \
+    texlive-fontsrecommended texlive-fontutils texlive-langcjk texlive-langchinese \
     biber make unzip
+
+RUN rm -rf /var/cache/pacman/pkg/* /var/lib/pacman/sync/* /tmp/* /var/tmp/*
 
 WORKDIR /work
 
-COPY . .
+COPY main.tex .
+COPY Makefile .
+COPY code/ ./code/
+COPY ttf/ ./ttf/
+COPY NotoSerifTC-Medium.otf ./
 
 RUN cd ttf && \
     unzip 'DMCAsansserif9.0-20252.zip' && \
