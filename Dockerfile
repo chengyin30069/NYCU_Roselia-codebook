@@ -2,7 +2,9 @@ FROM archlinux:latest
 
 RUN echo 'ParallelDownloads = 5' >> /etc/pacman.conf
 
-RUN pacman -Syu --noconfirm reflector rsync
+RUN pacman -Syu --noconfirm reflector rsync && \
+	rm -rf /var/cache/pacman/pkg/* /var/lib/pacman/sync/* /tmp/* /var/tmp/*
+	
 
 RUN rm /etc/pacman.d/mirrorlist && \
     reflector -f 10 -c Taiwan >> /etc/pacman.d/mirrorlist
@@ -10,17 +12,12 @@ RUN rm /etc/pacman.d/mirrorlist && \
 RUN pacman -S --noconfirm texlive-basic texlive-latex texlive-latexrecommended texlive-latexextra \
     texlive-xetex texlive-pictures texlive-mathscience texlive-bibtexextra \
     texlive-fontsrecommended texlive-fontutils texlive-langcjk texlive-langchinese \
-    biber make unzip
-
-RUN rm -rf /var/cache/pacman/pkg/* /var/lib/pacman/sync/* /tmp/* /var/tmp/*
+    biber make unzip && \
+	rm -rf /var/cache/pacman/pkg/* /var/lib/pacman/sync/* /tmp/* /var/tmp/*
 
 WORKDIR /work
 
-COPY main.tex .
-COPY Makefile .
-COPY code/ ./code/
-COPY ttf/ ./ttf/
-COPY NotoSerifTC-Medium.otf ./
+COPY . .
 
 RUN cd ttf && \
     unzip 'DMCAsansserif9.0-20252.zip' && \
