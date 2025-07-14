@@ -1,4 +1,7 @@
+.vscode
 legacy
+work
+.gitignore
 Dockerfile
 hash.sh
 hash.sha256
