@@ -30,6 +30,16 @@ bool onseg(Pt p, Pt l1, Pt l2) {
     Pt a = mv(p, l1), b = mv(p, l2);
     return ((a ^ b) == 0) && ((a * b) <= 0);
 }
+
+inline int cross(const Pt &a, const Pt &b, const Pt &c) {
+    return (b.x - a.x) * (c.y - a.y)
+         - (b.y - a.y) * (c.x - a.x);
+}
+
+double polar_angle(Pt ori, Pt pt){
+    return atan2(pt.y - ori.y, pt.x - ori.x);
+}
+
 bool argcmp(Pt u, Pt v) {
     auto half = [](const Pt& p) {
         return p.y > 0 || (p.y == 0 && p.x >= 0);
