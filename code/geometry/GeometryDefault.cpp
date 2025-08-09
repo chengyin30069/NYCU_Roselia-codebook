@@ -39,7 +39,7 @@ inline int cross(const Pt &a, const Pt &b, const Pt &c) {
 double polar_angle(Pt ori, Pt pt){
     return atan2(pt.y - ori.y, pt.x - ori.x);
 }
-
+// slope to degree atan(Slope) * 180.0 / acos(-1.0);
 bool argcmp(Pt u, Pt v) {
     auto half = [](const Pt& p) {
         return p.y > 0 || (p.y == 0 && p.x >= 0);
