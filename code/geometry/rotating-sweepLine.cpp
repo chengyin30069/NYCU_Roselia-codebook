@@ -8,10 +8,7 @@ int rotatingCalipers(const vector<Pt>& hull) {
     T maxd = 0;
     for (int i = 0; i < m; ++i) {
         int ni = (i + 1) % m;
-        while (abs(cross({hull[ni].x - hull[i].x, hull[ni].y - hull[i].y},
-                         {hull[(j+1)%m].x - hull[i].x, hull[(j+1)%m].y - hull[i].y}))
-             > abs(cross({hull[ni].x - hull[i].x, hull[ni].y - hull[i].y},
-                         {hull[j].x - hull[i].x,   hull[j].y - hull[i].y}))) {
+        while (abs(cross({hull[ni].x - hull[i].x, hull[ni].y - hull[i].y}, {hull[(j+1)%m].x - hull[i].x, hull[(j+1)%m].y - hull[i].y})) > abs(cross({hull[ni].x - hull[i].x, hull[ni].y - hull[i].y}, {hull[j].x - hull[i].x,   hull[j].y - hull[i].y}))) {
             j = (j + 1) % m;
         }
         maxd = max(maxd, dis2(hull[i], hull[j]));
