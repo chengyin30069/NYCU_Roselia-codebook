@@ -1,6 +1,6 @@
 // typedef long long T;
 typedef long double T;
-const long double eps = 1e-8;
+const long double eps = 1e-12;
 
 short sgn(T x) {
     if (abs(x) < eps) return 0;
@@ -24,13 +24,12 @@ struct Pt {
 Pt mv(Pt a, Pt b) { return b - a; }
 T len2(Pt a) { return a * a; }
 T dis2(Pt a, Pt b) { return len2(b - a); }
-
+Pt rotate(Pt u) { return {-u.y, u.x}; }
 short ori(Pt a, Pt b) { return ((a ^ b) > 0) - ((a ^ b) < 0); }
 bool onseg(Pt p, Pt l1, Pt l2) {
     Pt a = mv(p, l1), b = mv(p, l2);
     return ((a ^ b) == 0) && ((a * b) <= 0);
 }
-
 inline int cross(const Pt &a, const Pt &b, const Pt &c) {
     return (b.x - a.x) * (c.y - a.y)
          - (b.y - a.y) * (c.x - a.x);
@@ -55,4 +54,14 @@ struct Line {
 };
 int ori(Pt& o, Pt& a, Pt& b) {
     return sgn((a - o) ^ (b - o));
+}
+struct Cir { 
+    Pt o;
+    T r; 
+};
+bool disjunct(Cir a, Cir b) {
+    return sgn(sqrtl(len2(a.o - b.o)) - a.r - b.r) >= 0; 
+}
+bool contain(Cir a, Cir b) {
+    return sgn(a.r - b.r - sqrtl(len2(a.o - b.o))) >= 0; 
 }
