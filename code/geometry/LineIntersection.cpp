@@ -22,3 +22,12 @@ vector<Pt> CircleInter(Cir a, Cir b) {
     if (sgn(v.x) == 0 and sgn(v.y) == 0) return {u};
     return {u - v, u + v}; // counter clockwise of a
 }
+vector<Pt> CircleLineInter(Cir c, Line l) {
+    Pt H = proj(c.o, l);
+    Pt dir = unit(l.b - l.a);
+    T h = sqrtl(len2(H - c.o));
+    if (sgn(h - c.r) > 0) return {};
+    T d = sqrtl(max((T)0, c.r * c.r - h * h));
+    if (sgn(d) == 0) return {H};
+    return {H - dir * d, H + dir * d};
+}

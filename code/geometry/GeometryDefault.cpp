@@ -25,17 +25,18 @@ Pt mv(Pt a, Pt b) { return b - a; }
 T len2(Pt a) { return a * a; }
 T dis2(Pt a, Pt b) { return len2(b - a); }
 Pt rotate(Pt u) { return {-u.y, u.x}; }
+Pt unit(Pt x) { return x / sqrtl(x * x); }
 short ori(Pt a, Pt b) { return ((a ^ b) > 0) - ((a ^ b) < 0); }
 bool onseg(Pt p, Pt l1, Pt l2) {
     Pt a = mv(p, l1), b = mv(p, l2);
     return ((a ^ b) == 0) && ((a * b) <= 0);
 }
-inline int cross(const Pt &a, const Pt &b, const Pt &c) {
+inline T cross(const Pt &a, const Pt &b, const Pt &c) {
     return (b.x - a.x) * (c.y - a.y)
          - (b.y - a.y) * (c.x - a.x);
 }
 
-double polar_angle(Pt ori, Pt pt){
+long double polar_angle(Pt ori, Pt pt){
     return atan2(pt.y - ori.y, pt.x - ori.x);
 }
 // slope to degree atan(Slope) * 180.0 / acos(-1.0);
@@ -46,14 +47,26 @@ bool argcmp(Pt u, Pt v) {
     if (half(u) != half(v)) return half(u) < half(v);
     return sgn(u ^ v) > 0;
 }
-struct Line {
-    Pt a, b;
-    Line() {}
-    Line(Pt _a, Pt _b) : a(_a), b(_b) {}
-    Pt dir() { return b - a; }
-};
 int ori(Pt& o, Pt& a, Pt& b) {
     return sgn((a - o) ^ (b - o));
+}
+struct Line { 
+    Pt a, b;
+    Pt dir() { return b - a; }
+};
+int PtSide(Pt p, Line L) {
+    return sgn(ori(L.a, L.b, p)); // for int
+    return sgn(ori(L.a, L.b, p) / sqrt(len2(L.a - L.b)));
+}
+bool PtOnSeg(Pt p, Line L) {
+    return PtSide(p, L) == 0 and sgn((p - L.a) * (p - L.b)) <= 0;
+}
+Pt proj(Pt& p, Line& l) {
+    Pt d = l.b - l.a;
+    T d2 = len2(d);
+    if (sgn(d2) == 0) return l.a;
+    T t = ((p - l.a) * d) / d2;
+    return l.a + d * t;
 }
 struct Cir { 
     Pt o;
