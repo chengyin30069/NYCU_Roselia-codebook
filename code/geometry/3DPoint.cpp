@@ -33,3 +33,12 @@ Pt line_plane_intersect(Pt u, Pt v, Pt a, Pt b, Pt c) {
   double s = n * (u - v);
   if (sign(s) == 0) return {-1, -1, -1}; // not found
   return v + (u - v) * ((n * (a - v)) / s); }
+Pt rotateAroundAxis(Pt v, Pt axis, double theta) {
+    axis = axis / abs(axis); // axis must be unit vector
+    double cosT = cos(theta);
+    double sinT = sin(theta);
+    Pt term1 = v * cosT;
+    Pt term2 = (axis ^ v) * sinT;
+    Pt term3 = axis * ((axis * v) * (1 - cosT));
+    return term1 + term2 + term3;
+}
