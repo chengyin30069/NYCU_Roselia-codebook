@@ -7,15 +7,19 @@ struct SAM {
     vector<State> st;
     int last;
     vector<long long> occ;
+    vector<int> first_bkpos;
     SAM(int maxlen = 0) {
         st.reserve(2 * maxlen + 5); st.push_back(State()); last = 0;
         occ.reserve(2 * maxlen + 5); occ.push_back(0);
+        first_bkpos.push_back(-1);
     }
     void extend(int c) {
         int cur = (int)st.size();
         st.push_back(State());
         occ.push_back(0);
+        first_bkpos.push_back(0);
         st[cur].len = st[last].len + 1;
+        first_bkpos[cur] = st[cur].len - 1;
         int p = last;
         while (p != -1 && st[p].next[c] == -1) {
             st[p].next[c] = cur;
@@ -30,6 +34,7 @@ struct SAM {
             } else {
                 int clone = (int)st.size();
                 st.push_back(st[q]);
+                first_bkpos.push_back(first_bkpos[q]);
                 occ.push_back(0);
                 st[clone].len = st[p].len + 1;
                 while (p != -1 && st[p].next[c] == q) {
