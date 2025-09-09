@@ -1,6 +1,6 @@
-# NYCU_hwh
+# NYCU_Roselia
 
-Codebook for ICPC team NYCU_hwh from National Yang Ming Chiao Tung University.
+Codebook for ICPC team NYCU_Roselia from National Yang Ming Chiao Tung University.
 
 ## Members
 
