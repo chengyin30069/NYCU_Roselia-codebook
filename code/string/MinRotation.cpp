@@ -1,4 +1,5 @@
 // rotate(begin(s), begin(s)+minRotation(s), end(s))
+// 找出字串的最小字典序旋轉
 int minRotation(string s) {
     int a = 0, n = s.size();
     s += s;

@@ -1,3 +1,4 @@
+// Duval: 將字串唯一分解為字典序非遞增的 Lyndon 子字串
 vector<string> duval(string const& s) {
     int n = s.size();
     int i = 0;

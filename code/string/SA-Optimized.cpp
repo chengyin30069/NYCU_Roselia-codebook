@@ -4,12 +4,22 @@ struct SuffixArray {  // don't forget s += "$";
     int n;
     string s;
     vector<int> suf, lcp, rk;
+    // 後綴陣列：suf[i] = 第 i 小的後綴起點
+    // LCP 陣列：lcp[i] = suf[i] 與 suf[i-1] 的最長共同前綴長度
+    // rank 陣列：rk[i] = 起點在 i 的後綴的名次
     vector<int> cnt, pos;
-    vector<pair<pii, int> > buc[2];
+    vector<pair<pair<int, int>, int> > buc[2];
     void init(string _s) {
         s = _s;
         n = (int)s.size();
         // resize(n): suf, rk, cnt, pos, lcp, buc[0~1]
+        suf.assign(n, 0);
+        rk.assign(n, 0);
+        lcp.assign(n, 0);
+        cnt.assign(n, 0);
+        pos.assign(n, 0);
+        buc[0].assign(n, {{0,0},0});
+        buc[1].assign(n, {{0,0},0});
     }
     void radix_sort() {
         for (int t : {0, 1}) {

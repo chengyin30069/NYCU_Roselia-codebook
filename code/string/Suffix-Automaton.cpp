@@ -2,12 +2,14 @@ struct SAM {
     struct State {
         int next[26];
         int link, len;
+        // suffix link，指向最長真後綴所對應的狀態
+        // 該狀態代表的字串集合中的最長字串長度
         State() : link(-1), len(0) { memset(next, -1, sizeof next); }
     };
     vector<State> st;
     int last;
-    vector<long long> occ;
-    vector<int> first_bkpos;
+    vector<long long> occ; // 每個狀態的出現次數 (endpos 個數)
+    vector<int> first_bkpos; // 出現在哪裡
     SAM(int maxlen = 0) {
         st.reserve(2 * maxlen + 5); st.push_back(State()); last = 0;
         occ.reserve(2 * maxlen + 5); occ.push_back(0);

@@ -1,4 +1,5 @@
 vector<int> f;
+// 沒匹配到可以退回哪裡
 void buildFailFunction(string &s) {
     f.resize(s.size(), -1);
     for (int i = 1; i < s.size(); i++) {

@@ -1,7 +1,8 @@
 struct ACautomata {
     struct Node {
-        int cnt;
+        int cnt; // 停在此節點的數量
         Node *go[26], *fail, *dic;
+        // 子節點 fail指標 最近的模式結尾
         Node() {
             cnt = 0;
             fail = 0;
@@ -27,7 +28,7 @@ struct ACautomata {
         }
         cur->cnt++;
     }
-    void make_fail() {
+    void make_fail() { // 全部 add 完做
         queue<Node *> que;
         que.push(root);
         while (!que.empty()) {
@@ -43,5 +44,20 @@ struct ACautomata {
                 }
             }
         }
+    }
+    // 出現過不同string的總數
+    int query_unique(const string& text) {
+        Node* p = root;
+        int ans = 0;
+        for(char ch : text) {
+            int i = ch - 'a';
+            while(p && !p->go[i]) p = p ->fail;
+            p = p ? p->go[i] : root;
+            if(p->cnt) {ans += p->cnt, p->cnt = 0;}
+            for(Node* t = p->dic; t; t = t->dic) if(t->cnt) {
+                ans += t->cnt; t->cnt = 0;
+            }
+        }
+        return ans;
     }
 } AC;
