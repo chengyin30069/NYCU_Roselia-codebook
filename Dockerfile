@@ -15,7 +15,9 @@ RUN pacman -Syu --noconfirm texlive-basic texlive-latex texlive-latexrecommended
 
 WORKDIR /work
 
-COPY . .
+COPY *.otf .
+
+COPY ttf/ ./ttf/
 
 RUN cd ttf && \
     unzip 'DMCAsansserif9.0-20252.zip' && \
@@ -26,6 +28,8 @@ RUN mkdir -p /usr/share/fonts/otf && \
     cp ./NotoSerifTC-Medium.otf /usr/share/fonts/otf/NotoSerifTC-Medium.otf 
 
 RUN fc-cache -fv
+
+COPY . .
 
 RUN make clean && \
     make all
