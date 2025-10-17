@@ -109,6 +109,7 @@ numbers=left
 \subsection{Bug List}
 \begin{itemize}[nolistsep]
 \item 沒開 long long
+\item 本地編譯請開-Wall -Wextra -Wshadow -fsanitize=address
 \item 陣列戳出界／開不夠大/ 開太大本地compile噴怪error
 \item 傳之前先確定選對檔案
 \item 寫好的函式忘記呼叫
@@ -116,15 +117,16 @@ numbers=left
 \item 0-base / 1-base
 \item 忘記初始化
 \item == 打成 =
-\item <= 打成 <+
+% \item <= 打成 <+
 \item dp[i] 從 dp[i-1] 轉移時忘記特判 i > 0
 \item std::sort 比較運算子寫成 < 或是讓 = 的情況為 true
 \item 漏 case / 分case要好好想
 \item 線段樹改值懶標初始值不能設為 0
+\item 少碰動態開點，能離散化就離散化
 \item DFS 的時候不小心覆寫到全域變數
 \item 浮點數誤差
 % \item unsigned int128
-\item 多筆測資不能沒讀完直接 return
+% \item 多筆測資不能沒讀完直接 return
 \item 記得刪 cerr
 \end{itemize}
 
