@@ -1,5 +1,5 @@
-#pragma GCC optimize("O3,unroll-loops")
-#pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
+#pragma GCC optimize("Ofast,unroll-loops,no-stack-protector,fast-math")
+#pragma GCC target("see,see2,see3,see4,avx2,bmi,bmi2,lzcnt,popcnt,tune=native")
 #pragma GCC optimize("trapv")
 mt19937 gen(chrono::steady_clock::now().time_since_epoch().count());
 uniform_int_distribution<int> dis(1, 100);
