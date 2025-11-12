@@ -1,0 +1,32 @@
+﻿canonical DMCA Sans Serif weights:
+
+regular	176	152
+bold	250	203
+
+by Luc(as)'s logarithmic interpolation theory:
+
+thin	104	98
+exlight	124	114
+light	148	132
+regular	176	152
+semib.	210	176
+bold	250	203
+exbold	298	235
+black	355	271
+
+offsets:
+
+thin	-72	-54
+exlight	-52	-38
+light	-28	-20
+regular	0	0
+semib.	34	24
+bold	74	51
+exbold	122	83
+black	179	119
+
+Other font parameters:
+
+italic slant: 18.43494882292201, offset -228.33333333333333
+
+underline: position -100, height equal to the vertical weight
