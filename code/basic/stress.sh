@@ -10,5 +10,6 @@ do
     if [ “$?” -ne 0 ]; then
       exit 1
     fi
+    { cat in.txt; echo; cat ac.txt; } > case_$i.txt
     diff ac.txt wa.txt || break
 done
