@@ -7,5 +7,8 @@ do
     ./gen.out > in.txt
     ./ac.out < in.txt > ac.txt
     ./wa.out < in.txt > wa.txt
+    if [ “$?” -ne 0 ]; then
+      exit 1
+    fi
     diff ac.txt wa.txt || break
 done
