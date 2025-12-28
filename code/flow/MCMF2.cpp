@@ -1,22 +1,17 @@
 struct MCMF {
-    int n, s, t, par[N + 5], p_i[N + 5], dis[N + 5], vis[N + 5];
+    int n, s, t; // 0-based, s and t in [0,n-1]
+    vector<int> par, p_i, dis, vis;
     struct edge {
         int to, cap, rev, cost;
     };
-    vector<edge> path[N];
-    void init(int _n, int _s, int _t) {
-        n = _n, s = _s, t = _t;
-        FOR(i, 0, 2 * n + 5)
-        par[i] = p_i[i] = vis[i] = 0;
-    }
+    vector<vector<edge>> path;
+    MCMF(int _n) : n(_n), par(_n), p_i(_n), dis(_n), vis(_n), path(_n, vector<edge>(0)) {}
     void add(int a, int b, int c, int d) {
         path[a].pb({b, c, sz(path[b]), d});
         path[b].pb({a, 0, sz(path[a]) - 1, -d});
     }
     void spfa() {
-        FOR(i, 0, n * 2 + 5)
-        dis[i] = INF,
-        vis[i] = 0;
+        FOR(i, 0, n) dis[i] = INF, vis[i] = 0;
         dis[s] = 0;
         queue<int> q;
         q.push(s);
@@ -38,7 +33,9 @@ struct MCMF {
             }
         }
     }
-    pii flow() {
+    pii flow(int _s, int _t) {
+        s = _s;
+        t = _t;
         int flow = 0, cost = 0;
         while (true) {
             spfa();
@@ -50,7 +47,7 @@ struct MCMF {
             flow += mn;
             cost += dis[t] * mn;
             for (int i = t; i != s; i = par[i]) {
-                edge &now = path[par[i]][p_i[i]];
+                edge& now = path[par[i]][p_i[i]];
                 now.cap -= mn;
                 path[i][now.rev].cap += mn;
             }
