@@ -6,7 +6,7 @@ RUN pacman -Syu --noconfirm reflector rsync
 	
 
 RUN rm /etc/pacman.d/mirrorlist && \
-    reflector -f 10 -c Taiwan >> /etc/pacman.d/mirrorlist
+    reflector -f 10 -c Taiwan -p "http,https" >> /etc/pacman.d/mirrorlist
 
 RUN pacman -Syu --noconfirm texlive-basic texlive-latex texlive-latexrecommended texlive-latexextra \
     texlive-xetex texlive-pictures texlive-mathscience texlive-bibtexextra \
